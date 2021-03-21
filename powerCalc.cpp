@@ -7,8 +7,8 @@ uint8_t powerLeds[NUMLEDS];
 
 void calcLedsFromPower(void)
 {
-uint8_t posMarker=0,negMarker=NUMLEDS;
-int8_t temp;
+uint8_t posMarker=0;
+int8_t temp,negMarker=NUMLEDS;
 double eigenVerbrauch;
   fill_led_color(F_BLACK,BRIGHTNESS);
   eigenVerbrauch = powerSolar;
@@ -44,8 +44,10 @@ double eigenVerbrauch;
   }
   else
   {
-    bar_led_color(F_ROT,BRIGHTNESS,negMarker+temp,negMarker);  // temp ist negativ !!!
-    negMarker += temp;
+    if(negMarker+temp<0)
+      bar_led_color(F_ROT,BRIGHTNESS,0,negMarker);  // temp ist negativ !!!
+    else
+      bar_led_color(F_ROT,BRIGHTNESS,negMarker+temp,negMarker);  // temp ist negativ !!!
   }
 
 }
