@@ -46,3 +46,7 @@
 *.sig
 
 -ffunction-sections
+
+*.layout
+
+*.depend
