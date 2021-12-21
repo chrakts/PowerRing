@@ -9,7 +9,7 @@
 
 void setup()
 {
-  init_clock(SYSCLK,PLL,true,CLOCK_CALIBRATION);
+  init_clock(SYSCLK,PLL,true,CLOCK_CALIBRATION); //
 	PORTA_DIRSET = PIN2_bm | PIN3_bm | PIN4_bm;
 	PORTA_OUTSET = 0xff;
 
