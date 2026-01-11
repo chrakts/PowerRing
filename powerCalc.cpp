@@ -2,10 +2,10 @@
 
 #define BRIGHTNESS 12
 
-#define MIN_BRIGHTNESS 35
+#define MIN_BRIGHTNESS 4
 #define MAX_BRIGHTNESS 80
 
-volatile double powerGrid=-1200,powerBatterie=-300,powerSolar=1500,batterieStatus=50,helligkeitAussen=1000;
+volatile double powerGrid=-1200,powerBatterie=-300,powerSolar=1500,batterieStatus=50,helligkeitAussen=50;
 
 
 void calcLedsFromPower(void)
@@ -75,22 +75,22 @@ void calcBatterieStatus()
   if (brightness> MAX_BRIGHTNESS)
     brightness = MAX_BRIGHTNESS;
 
-  temp = round(batterieStatus/4-1); // die ersten 4% werden nicht angezeigt -> Dadurch ergibt sich mit 24 LEDs: 4%/LED
+  temp = round(batterieStatus/4-1-1); // die ersten 4% werden nicht angezeigt -> Dadurch ergibt sich mit 24 LEDs: 4%/LED
   if(temp < 0)
     temp = 0;
-  if(temp<15)
+  if(temp<7)
   {
     if(temp<4) // Rot
     {
-      bar_ring1_color(F_ROT,brightness,temp,temp+1);
+      bar_ring2_color(F_ROT,brightness,0,temp+1);
     }
     else // Gelb
     {
-      bar_ring1_color(F_GELB,brightness,temp,temp+1);
+      bar_ring2_color(F_GELB,brightness,0,temp+1);
     }
   }
   else // Grün
   {
-    bar_ring1_color(F_GRUEN,brightness,temp,temp+1);
+    bar_ring2_color(F_GRUEN,brightness,0,temp+1);
   }
 }

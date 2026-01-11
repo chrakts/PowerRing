@@ -42,16 +42,16 @@ void setup()
 
 int main(void)
 {
-	setup();
-	cnet.broadcastUInt8((uint8_t) RST.STATUS,'S','0','R');
-	init_mytimer();
+  setup();
+  cnet.broadcastUInt8((uint8_t) RST.STATUS,'S','0','R');
+  init_mytimer();
   WS_init();
 
 
-  _delay_ms(100);
-    for(uint8_t i=23;i>=0;i-=2)
+/*  _delay_ms(100);
+    for(uint8_t i=0;i<24;i++)
     {
-      bar_ring1_color(F_GRUEN,100,i,i+2);
+      set_led_color(F_ROT,100,ring1(i));
       refresh_led();
       _delay_ms(300);
     }
@@ -59,7 +59,7 @@ int main(void)
   while(1)
   {
     ;
-  }
+  }*/
 
 	while (1)
 	{
@@ -68,6 +68,7 @@ int main(void)
     {
       updateLED = false;
       calcLedsFromPower();
+      calcBatterieStatus();
       refresh_led();
     }
 		cnetRec.comStateMachine();

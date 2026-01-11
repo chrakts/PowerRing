@@ -9,5 +9,6 @@
 extern volatile double powerGrid,powerBatterie,powerSolar,batterieStatus,helligkeitAussen;
 
 void calcLedsFromPower(void);
+void calcBatterieStatus(void);
 
 #endif // POWERCALC_H_INCLUDED

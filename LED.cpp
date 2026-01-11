@@ -28,6 +28,35 @@ int i=19;
 }
 */
 
+
+uint8_t ring1(uint8_t index)
+{
+  #define ring1Start 24
+  #define ring1Offset 11
+  #define ring1Number 24
+  #define ring1Direction -1
+  int8_t temp=0;
+  temp = index * ring1Direction + ring1Offset;
+  if(temp < 0)
+    temp += ring1Number;
+  temp = temp % ring1Number;
+  return( uint8_t(temp)+ring1Start );
+}
+
+uint8_t ring2(uint8_t index)
+{
+  #define ring2Start  0
+  #define ring2Offset -1
+  #define ring2Number 24
+  #define ring2Direction 1
+  int8_t temp=0;
+  temp = index * ring2Direction + ring2Offset;
+  if(temp < 0)
+    temp += ring2Number;
+  temp = temp % ring2Number;
+  return(uint8_t(temp)+ring2Start);
+}
+
 void set_led_color(uint8_t r,uint8_t g,uint8_t b,uint8_t bright,uint8_t index)
 {
 	if (index<NUMLEDS)
@@ -53,45 +82,17 @@ void bar_led_color(uint8_t r,uint8_t g,uint8_t b,uint8_t bright,uint8_t start, u
 
 void bar_ring1_color(uint8_t r,uint8_t g,uint8_t b,uint8_t bright,uint8_t start, uint8_t ende)
 {
-  #define ring1Start 24
-  #define ring1Offset 11
-  #define ring1Number 24
-  #define ring1Direction -1
-
-  int8_t ring = ring1Start+ring1Offset+start*ring1Direction;
-  if(ring<ring1Start)
-      ring = ring1Start+ring1Number-(ring1Start-ring);
-  //if(ring == ring1Number+ring1Start)
-  //    ring = ring1Start;
-
   for(uint8_t i=start;i<ende;i++)
   {
-    if(ring<ring1Start)
-      ring = ring1Start+ring1Number-1;
-    if(ring == ring1Number+ring1Start)
-      ring = ring1Start;
-    cnet.broadcastUInt8(ring,'S','0','R');
-    set_led_color(r,g,b,bright,ring);
-    ring += ring1Direction;
+    set_led_color(r,g,b,bright,ring1(i));
   }
 }
 
 void bar_ring2_color(uint8_t r,uint8_t g,uint8_t b,uint8_t bright,uint8_t start, uint8_t ende)
 {
-  #define ring2Offset 24
-  #define ring2Number 24
-  #define ring2Direction 1
-
-  uint8_t ring = ring2Offset+start;
-
   for(uint8_t i=start;i<ende;i++)
   {
-    if(ring<0)
-      ring = ring2Number-1;
-    if(ring == ring2Number)
-      ring = 0;
-    set_led_color(r,g,b,bright,ring);
-    ring += ring2Direction;
+    set_led_color(r,g,b,bright,ring2(i));
   }
 }
 

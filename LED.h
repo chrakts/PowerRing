@@ -42,8 +42,10 @@ extern FARBE iFarbe[16];
 #define F_MAGENTA 0x7f,0x35,0x35
 #define F_TUERKIS 0x00,0x7f,0x7f
 #define F_MINT    0x7f,0x7f,0x00
-#define F_GELB		0x7f,0x70,0x3f
+#define F_GELB		0x7f,0x60,0x2f
 
+uint8_t ring1(uint8_t index);
+uint8_t ring2(uint8_t index);
 void bar_ring1_color(uint8_t r,uint8_t g,uint8_t b,uint8_t bright,uint8_t start, uint8_t ende);
 void bar_ring2_color(uint8_t r,uint8_t g,uint8_t b,uint8_t bright,uint8_t start, uint8_t ende);
 void bar_led_color(uint8_t r,uint8_t g,uint8_t b,uint8_t bright,uint8_t start, uint8_t ende);
