@@ -35,9 +35,9 @@
 			</Environment>
 		</Build>
 		<Compiler>
+			<Add option="-mmcu=atxmega128a4u" />
 			<Add option="-Wall" />
 			<Add option="-std=c++14" />
-			<Add option="-mmcu=atxmega128a4u" />
 			<Add option="-c -fpermissive" />
 			<Add option="-Wno-enum-compare" />
 			<Add option="-MD -MP -MF" />
@@ -49,13 +49,13 @@
 			<Add option="-DWS_ARCH_XMEGA" />
 			<Add directory="/opt/avr8-gnu-toolchain-linux_x86_64/avr/lib/avrxmega2" />
 			<Add directory="/opt/avr8-gnu-toolchain-linux_x86_64/avr/include" />
-			<Add directory="/home/christof/Daten/Software/repositories/communication" />
-			<Add directory="/home/christof/Daten/Software/repositories/ComReceiver" />
-			<Add directory="/home/christof/Daten/Software/repositories/xmegaClocks" />
-			<Add directory="/home/christof/Daten/Software/repositories/PowerRing" />
-			<Add directory="/home/christof/Daten/Software/repositories/timer" />
-			<Add directory="/home/christof/Daten/Software/repositories/Secrets" />
-			<Add directory="/home/christof/Daten/Software/repositories/ws2812" />
+			<Add directory="../communication" />
+			<Add directory="../ComReceiver" />
+			<Add directory="../xmegaClocks" />
+			<Add directory="../PowerRing" />
+			<Add directory="../timer" />
+			<Add directory="../Secrets" />
+			<Add directory="../ws2812" />
 		</Compiler>
 		<Linker>
 			<Add option="-mmcu=atxmega128a4u" />
