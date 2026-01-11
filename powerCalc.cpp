@@ -2,15 +2,27 @@
 
 #define BRIGHTNESS 12
 
-volatile double powerGrid=3000,powerBatterie=650,powerSolar=4500;
-uint8_t powerLeds[NUMLEDS];
+#define MIN_BRIGHTNESS 35
+#define MAX_BRIGHTNESS 80
+
+volatile double powerGrid=-1200,powerBatterie=-300,powerSolar=1500,batterieStatus=50,helligkeitAussen=1000;
+
 
 void calcLedsFromPower(void)
 {
 uint8_t posMarker=0;
-int8_t temp,negMarker=NUMLEDS;
+int8_t temp,negMarker=NUM_RING1;
 double eigenVerbrauch;
-  fill_led_color(F_BLACK,BRIGHTNESS);
+uint8_t brightness;
+
+  brightness = uint8_t(helligkeitAussen/10.0);
+  if (brightness< MIN_BRIGHTNESS)
+    brightness = MIN_BRIGHTNESS;
+  if (brightness> MAX_BRIGHTNESS)
+    brightness = MAX_BRIGHTNESS;
+
+
+  fill_led_color(F_BLACK,brightness);
   eigenVerbrauch = powerSolar;
   if(powerBatterie>0)
     eigenVerbrauch-=powerBatterie;
@@ -20,34 +32,65 @@ double eigenVerbrauch;
   temp = round(eigenVerbrauch/powerPerLed);
   if(temp>0)
   {
-    bar_led_color(F_MAGENTA,BRIGHTNESS,posMarker,temp);
+    bar_ring1_color(F_MAGENTA,brightness,posMarker,temp);
     posMarker += temp;
   }
 
   temp = round(powerBatterie/powerPerLed);
   if(temp>0)
   {
-    bar_led_color(F_TUERKIS,BRIGHTNESS,posMarker,posMarker+temp);
+    bar_ring1_color(F_TUERKIS,brightness,posMarker,posMarker+temp);
     posMarker += temp;
   }
   else
   {
-    bar_led_color(F_LILA,BRIGHTNESS,negMarker+temp,negMarker);  // temp ist negativ !!!
+    bar_ring1_color(F_LILA,brightness,negMarker+temp,negMarker);  // temp ist negativ !!!
     negMarker += temp;
   }
 
   temp = round(powerGrid/(powerPerLed));
   if(temp>0)
   {
-    bar_led_color(F_GRUEN,BRIGHTNESS,posMarker,posMarker+temp);
+    bar_ring1_color(F_GRUEN,brightness,posMarker,posMarker+temp);
     posMarker += temp;
   }
   else
   {
     if(negMarker+temp<0)
-      bar_led_color(F_ROT,BRIGHTNESS,0,negMarker);  // temp ist negativ !!!
+      bar_ring1_color(F_ROT,brightness,0,negMarker);  // temp ist negativ !!!
     else
-      bar_led_color(F_ROT,BRIGHTNESS,negMarker+temp,negMarker);  // temp ist negativ !!!
+      bar_ring1_color(F_ROT,brightness,negMarker+temp,negMarker);  // temp ist negativ !!!
   }
 
+}
+
+void calcBatterieStatus()
+{
+  int8_t temp;
+  uint8_t brightness;
+
+  brightness = uint8_t(helligkeitAussen/10.0);
+  if (brightness< MIN_BRIGHTNESS)
+    brightness = MIN_BRIGHTNESS;
+  if (brightness> MAX_BRIGHTNESS)
+    brightness = MAX_BRIGHTNESS;
+
+  temp = round(batterieStatus/4-1); // die ersten 4% werden nicht angezeigt -> Dadurch ergibt sich mit 24 LEDs: 4%/LED
+  if(temp < 0)
+    temp = 0;
+  if(temp<15)
+  {
+    if(temp<4) // Rot
+    {
+      bar_ring1_color(F_ROT,brightness,temp,temp+1);
+    }
+    else // Gelb
+    {
+      bar_ring1_color(F_GELB,brightness,temp,temp+1);
+    }
+  }
+  else // Grün
+  {
+    bar_ring1_color(F_GRUEN,brightness,temp,temp+1);
+  }
 }
