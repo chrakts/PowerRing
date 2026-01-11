@@ -14,7 +14,9 @@ INFORMATION information[NUM_INFORMATION]=
 {
   {"HA",'E','B','a',FLOAT,1,&powerBatterie,gotNewPower},
   {"HA",'E','S','a',FLOAT,1,&powerSolar,gotNewPower},
-  {"HA",'E','G','a',FLOAT,1,&powerGrid,gotNewPower}
+  {"HA",'E','G','a',FLOAT,1,&powerGrid,gotNewPower},
+  {"HA",'B','L','a',FLOAT,1,&batterieStatus,gotNewPower},
+  {"CQ",'C','1','l',FLOAT,1,&helligkeitAussen,NULL}            //Cmulti/HA/E/H/a/BR/T
 };
 
 COMMAND cnetCommands[NUM_COMMANDS] =
@@ -25,4 +27,5 @@ COMMAND cnetCommands[NUM_COMMANDS] =
 void gotNewPower()
 {
   updateLED = true;
+  LEDROT_TOGGLE;
 }

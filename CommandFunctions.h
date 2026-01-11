@@ -14,7 +14,7 @@ extern COMMAND cnetCommands[];
 extern INFORMATION information[];
 
 #define NUM_COMMANDS 0+CMULTI_STANDARD_NUM
-#define NUM_INFORMATION 3
+#define NUM_INFORMATION 5
 
 
 void gotNewPower();
