@@ -15,7 +15,7 @@
 #define  USE_RS485_FEEDBACK_0
 #define  USE_BUSY_0 true
 
-#define UART_PORT_0 D
+#define UART_PORT_0 E
 #define UART_NUM_0  0
 #define TE_PIN_0    0
 #define RE_PIN_0    1
@@ -30,11 +30,11 @@
 #undef  USE_RS485_FEEDBACK_1
 #define USE_BUSY_1 false
 
-#define UART_PORT_1 E
+#define UART_PORT_1 C
 #define UART_NUM_1  0
-#define TE_PIN_1    4
-#define RE_PIN_1    5
-#define TX_PIN_1    7
+#define TE_PIN_1    0
+#define RE_PIN_1    1
+#define TX_PIN_1    3
 #define RX_PIN_1    6
 #define USART_RXCINTLVL_1 USART_RXCINTLVL_LO_gc
 #define USART_TXCINTLVL_1 USART_TXCINTLVL_LO_gc
@@ -115,8 +115,8 @@
 #define Busy_Control_TimVec_1  JOIN4(TC,BUSY_TIMER_PORT,2,_HUNF_vect)
 
 
-#define UART0_RING_BUFFER_SIZE 60
-#define UART1_RING_BUFFER_SIZE 60
+#define UART0_RING_BUFFER_SIZE 32
+#define UART1_RING_BUFFER_SIZE 2
 
 extern volatile uint8_t UART0_ring_received;
 extern volatile  char UART0_ring_buffer[UART0_RING_BUFFER_SIZE];

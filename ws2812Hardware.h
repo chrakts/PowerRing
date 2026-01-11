@@ -62,14 +62,16 @@
 #define     WS_WGMODE       0x03        // WGMODE_SS
 
 #ifdef POWERRING1
-  #define     WS_OUTPIN 6        // output pin
-#endif // PLUG128
+  #define     WS_OUTPIN 2        // output pin
+  #define     WS_D_PORT
+#endif // POWERRING1
 #ifdef BEDIENUNG_V03
   #define     WS_OUTPIN 4         // output pin
+  #define     WS_C_PORT
+  #define     WS_PIN_INVERT
 #endif // BEDIENUNG_V03
 
-#define     WS_C_PORT
-#define     WS_PIN_INVERT
+
 
 #if WS_OUTPIN == 0
   #define CCx          CCA
