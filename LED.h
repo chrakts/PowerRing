@@ -8,7 +8,9 @@
 #ifndef LED_H_
 #define LED_H_
 
-#define NUMLEDS 24
+#define NUM_RING1 24
+#define NUM_RING2 24
+#define NUMLEDS 48
 
 
 struct str_farbe
@@ -42,6 +44,8 @@ extern FARBE iFarbe[16];
 #define F_MINT    0x7f,0x7f,0x00
 #define F_GELB		0x7f,0x70,0x3f
 
+void bar_ring1_color(uint8_t r,uint8_t g,uint8_t b,uint8_t bright,uint8_t start, uint8_t ende);
+void bar_ring2_color(uint8_t r,uint8_t g,uint8_t b,uint8_t bright,uint8_t start, uint8_t ende);
 void bar_led_color(uint8_t r,uint8_t g,uint8_t b,uint8_t bright,uint8_t start, uint8_t ende);
 void set_led_color(uint8_t r,uint8_t g,uint8_t b,uint8_t bright,uint8_t index);
 void fill_led_color(uint8_t r,uint8_t g,uint8_t b,uint8_t bright);

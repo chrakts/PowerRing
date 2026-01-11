@@ -15,22 +15,24 @@ void setup()
 
 	PORTB_DIRSET = 0xff;
 
-	PORTC_DIRSET = PIN1_bm;
+	PORTC_DIRSET = PIN2_bm | PIN4_bm;
+  PORTC_OUTSET = PIN2_bm;
 
-	PORTD_DIRSET = PIN0_bm | PIN4_bm | PIN5_bm | PIN7_bm;
-	PORTD_DIRCLR = PIN6_bm;
-	PORTD_OUTCLR = PIN4_bm | PIN5_bm;
+	PORTD_DIRSET = PIN2_bm;
+	PORTD_OUTSET = PIN2_bm;
+  PORTD.PIN2CTRL = PORT_OPC_WIREDAND_gc;
 
-	PORTE_DIRSET = 0xff;
+	PORTE_DIRSET = 0b00001011;
+	PORTE_DIRCLR = 0b11110100;
 
 	uint8_t i;
-
-	for(i=0;i<20;i++)
+	for(i=0;i<4;i++)
 	{
-		LEDGRUEN_TOGGLE;
+		LEDROT_TOGGLE;
 		_delay_ms(50);
 	}
-  LEDGRUEN_OFF;
+  LEDROT_OFF;
+
 
 	PMIC_CTRL = PMIC_LOLVLEX_bm | PMIC_HILVLEN_bm | PMIC_MEDLVLEN_bm;
 	sei();
@@ -45,8 +47,23 @@ int main(void)
 	init_mytimer();
   WS_init();
 
+
+  _delay_ms(100);
+    for(uint8_t i=23;i>=0;i-=2)
+    {
+      bar_ring1_color(F_GRUEN,100,i,i+2);
+      refresh_led();
+      _delay_ms(300);
+    }
+
+  while(1)
+  {
+    ;
+  }
+
 	while (1)
 	{
+
     if(updateLED)
     {
       updateLED = false;

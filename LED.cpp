@@ -10,26 +10,15 @@
 #include "LED.h"
 #include "ws2812.h"
 
-static const uint8_t PROGMEM GammaTable[] = GCN_TABLE7TO8;
+static const uint8_t PROGMEM GammaTable[] = GCN_TABLE7TO8; // Original ! 128 Bytes
+//static const uint8_t GammaTable[] = GCN_TABLE7TO8;
 
-FARBE leds[NUMLEDS] = {};
+FARBE leds[NUMLEDS] = {F_ROT,F_LILA} ;  // 72 Bytes
 
 uint16_t AutoGain[20]= {0,0,0,10,15,20,40,80,160,320,640,1280,2560,5120,10240,20480,2560,30960,35960,40960};
 
-//                 Rot  GRÜN BLAU
-FARBE iFarbe[16]={{0x00,0x00,0x00},// F_BLACK
-                  {0x00,0x00,0x7f},// F_BLAU
-                  {0x7f,0x7f,0x7f},// F_WEISS
-                  {0x7f,0x00,0x00},// F_ROT
-                  {0x00,0x7f,0x00},// F_GRUEN
-                  {0x7f,0x00,0x7f},// F_LILA
-                  {0x7f,0x5f,0x25},// F_ORANGE
-                  {0x7f,0x35,0x35},// F_MAGENTA
-                  {0x00,0x7f,0x7f},// F_TUERKIS
-                  {0x7f,0x7f,0x00}, // F_MINT
-                  {0x7f,0x70,0x3f}, // F_GELB
-                 };
 
+/*
 void set_led_autobright(uint16_t lumi)
 {
 int i=19;
@@ -37,6 +26,7 @@ int i=19;
 		i--;
 	fill_led_brightness(i+1);
 }
+*/
 
 void set_led_color(uint8_t r,uint8_t g,uint8_t b,uint8_t bright,uint8_t index)
 {
@@ -58,6 +48,50 @@ void bar_led_color(uint8_t r,uint8_t g,uint8_t b,uint8_t bright,uint8_t start, u
   for(uint8_t i=start;i<ende;i++)
   {
     set_led_color(r,g,b,bright,i);
+  }
+}
+
+void bar_ring1_color(uint8_t r,uint8_t g,uint8_t b,uint8_t bright,uint8_t start, uint8_t ende)
+{
+  #define ring1Start 24
+  #define ring1Offset 11
+  #define ring1Number 24
+  #define ring1Direction -1
+
+  int8_t ring = ring1Start+ring1Offset+start*ring1Direction;
+  if(ring<ring1Start)
+      ring = ring1Start+ring1Number-(ring1Start-ring);
+  //if(ring == ring1Number+ring1Start)
+  //    ring = ring1Start;
+
+  for(uint8_t i=start;i<ende;i++)
+  {
+    if(ring<ring1Start)
+      ring = ring1Start+ring1Number-1;
+    if(ring == ring1Number+ring1Start)
+      ring = ring1Start;
+    cnet.broadcastUInt8(ring,'S','0','R');
+    set_led_color(r,g,b,bright,ring);
+    ring += ring1Direction;
+  }
+}
+
+void bar_ring2_color(uint8_t r,uint8_t g,uint8_t b,uint8_t bright,uint8_t start, uint8_t ende)
+{
+  #define ring2Offset 24
+  #define ring2Number 24
+  #define ring2Direction 1
+
+  uint8_t ring = ring2Offset+start;
+
+  for(uint8_t i=start;i<ende;i++)
+  {
+    if(ring<0)
+      ring = ring2Number-1;
+    if(ring == ring2Number)
+      ring = 0;
+    set_led_color(r,g,b,bright,ring);
+    ring += ring2Direction;
   }
 }
 
@@ -84,10 +118,14 @@ void fill_led_brightness(uint8_t bright)
 	}
 }
 
+
+
 void refresh_led()
 {
 	int8_t i,j;
-	static uint8_t led_loc[3*NUMLEDS]; // 3
+
+
+	static uint8_t led_loc[3*NUMLEDS]; // 3 -> 72 Bytes
 	uint16_t color;
   j=0;
 	for (i=NUMLEDS-1;i>=0;i--)
@@ -100,12 +138,13 @@ void refresh_led()
 		led_loc[3*j+2] = (uint8_t) color;
 		j++;
 	}
-	while (WS_out(led_loc,NUMLEDS*3,GammaTable)!=0)
+  while (WS_out(led_loc,NUMLEDS*3,GammaTable)!=0)
 	{
-		//TEST_TOGGLE;
+		//LEDROT_TOGGLE;
 		_delay_us(300);
 	}
 }
+
 
 void outputLEDs()
 {
@@ -113,3 +152,4 @@ void outputLEDs()
   {
   }
 }
+

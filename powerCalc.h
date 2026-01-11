@@ -4,9 +4,9 @@
 #include "PowerRing.h"
 
 #define maxPower    6000
-#define powerPerLed (maxPower/NUMLEDS)
+#define powerPerLed (maxPower/NUM_RING1)
 
-extern volatile double powerGrid,powerBatterie,powerSolar;
+extern volatile double powerGrid,powerBatterie,powerSolar,batterieStatus,helligkeitAussen;
 
 void calcLedsFromPower(void);
 
