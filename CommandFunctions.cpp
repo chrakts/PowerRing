@@ -17,10 +17,10 @@ INFORMATION information[NUM_INFORMATION]=
   {"HA",'E','G','a',FLOAT,1,&powerGrid,gotNewPower},
   {"HA",'B','L','a',FLOAT,1,&batterieStatus,gotNewPower},
   {"CQ",'C','1','l',FLOAT,1,&helligkeitAussen,NULL},
-  {"Me",'S','D','0',NOPARAMETER,1,NULL,clearDebugging},
-  {"Me",'S','D','1',NOPARAMETER,1,NULL,setDebugging},
-  {"Me",'S','N','0',NOPARAMETER,1,NULL,deactivateNachtabschaltung},
-  {"Me",'S','N','1',NOPARAMETER,1,NULL,activateNachtabschaltung}
+  {"Me",'S','D','0',NOPARAMETER,0,NULL,clearDebugging},
+  {"Me",'S','D','1',NOPARAMETER,0,NULL,setDebugging},
+  {"Me",'S','N','0',NOPARAMETER,0,NULL,deactivateNachtabschaltung},
+  {"Me",'S','N','1',NOPARAMETER,0,NULL,activateNachtabschaltung}
 };
 
 COMMAND cnetCommands[NUM_COMMANDS] =
@@ -30,12 +30,12 @@ COMMAND cnetCommands[NUM_COMMANDS] =
 
 void setDebugging()
 {
-  doDebugging = 1;
+  doDebugging = true;
 }
 
 void clearDebugging()
 {
-  doDebugging = 0;
+  doDebugging = false;
 }
 
 void activateNachtabschaltung()
