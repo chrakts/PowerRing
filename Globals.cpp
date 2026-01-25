@@ -15,6 +15,10 @@ char IDNumber[12] EEMEM = "1784324-01";
 char SerialNumber[12] EEMEM = "1958632254";
 char IndexNumber[2] EEMEM = "A";
 
+bool doDebugging = true;
+
+bool Nachtabschaltung = false;
+
 char sLEDStatus[24];
 
 volatile uint8_t updateLED = true;

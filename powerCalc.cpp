@@ -15,12 +15,13 @@ int8_t temp,negMarker=NUM_RING1;
 double eigenVerbrauch;
 uint8_t brightness;
 
-  brightness = uint8_t(helligkeitAussen/10.0);
+ /* brightness = uint8_t(helligkeitAussen/10.0);
   if (brightness< MIN_BRIGHTNESS)
     brightness = MIN_BRIGHTNESS;
   if (brightness> MAX_BRIGHTNESS)
-    brightness = MAX_BRIGHTNESS;
+    brightness = MAX_BRIGHTNESS;*/
 
+  brightness = calcBrightness();
 
   fill_led_color(F_BLACK,brightness);
   eigenVerbrauch = powerSolar;
@@ -68,13 +69,14 @@ void calcBatterieStatus()
 {
   int8_t temp;
   uint8_t brightness;
-
+/*
   brightness = uint8_t(helligkeitAussen/10.0);
   if (brightness< MIN_BRIGHTNESS)
     brightness = MIN_BRIGHTNESS;
   if (brightness> MAX_BRIGHTNESS)
     brightness = MAX_BRIGHTNESS;
-
+*/
+  brightness = calcBrightness();
   temp = round(batterieStatus/4-1-1); // die ersten 4% werden nicht angezeigt -> Dadurch ergibt sich mit 24 LEDs: 4%/LED
   if(temp < 0)
     temp = 0;
@@ -93,4 +95,23 @@ void calcBatterieStatus()
   {
     bar_ring2_color(F_GRUEN,brightness,0,temp+1);
   }
+}
+
+uint8_t calcBrightness()
+{
+uint8_t brightness;
+
+  if( Nachtabschaltung == true)
+  {
+    brightness = 0;
+  }
+  else
+  {
+    brightness = uint8_t(helligkeitAussen/10.0);
+    if (brightness< MIN_BRIGHTNESS)
+      brightness = MIN_BRIGHTNESS;
+    if (brightness> MAX_BRIGHTNESS)
+      brightness = MAX_BRIGHTNESS;
+  }
+  return(brightness);
 }

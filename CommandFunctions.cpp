@@ -16,7 +16,11 @@ INFORMATION information[NUM_INFORMATION]=
   {"HA",'E','S','a',FLOAT,1,&powerSolar,gotNewPower},
   {"HA",'E','G','a',FLOAT,1,&powerGrid,gotNewPower},
   {"HA",'B','L','a',FLOAT,1,&batterieStatus,gotNewPower},
-  {"CQ",'C','1','l',FLOAT,1,&helligkeitAussen,NULL}            //Cmulti/HA/E/H/a/BR/T
+  {"CQ",'C','1','l',FLOAT,1,&helligkeitAussen,NULL},
+  {"Me",'S','D','0',NOPARAMETER,1,NULL,clearDebugging},
+  {"Me",'S','D','1',NOPARAMETER,1,NULL,setDebugging},
+  {"Me",'S','N','0',NOPARAMETER,1,NULL,deactivateNachtabschaltung},
+  {"Me",'S','N','1',NOPARAMETER,1,NULL,activateNachtabschaltung}
 };
 
 COMMAND cnetCommands[NUM_COMMANDS] =
@@ -24,8 +28,32 @@ COMMAND cnetCommands[NUM_COMMANDS] =
   cmultiStandardCommands,
 };
 
+void setDebugging()
+{
+  doDebugging = 1;
+}
+
+void clearDebugging()
+{
+  doDebugging = 0;
+}
+
+void activateNachtabschaltung()
+{
+  Nachtabschaltung = true;
+}
+
+void deactivateNachtabschaltung()
+{
+  Nachtabschaltung = false;
+}
+
 void gotNewPower()
 {
   updateLED = true;
-  LEDROT_TOGGLE;
+  if( doDebugging )
+    LEDROT_TOGGLE;
+  else
+    LEDROT_OFF;
 }
+

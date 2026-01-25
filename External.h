@@ -30,6 +30,10 @@ extern char IDNumber[12] EEMEM ;
 extern char SerialNumber[12] EEMEM;
 extern char IndexNumber[2] EEMEM;
 
+extern bool doDebugging;
+
+extern bool Nachtabschaltung;
+
 extern char sLEDStatus[24];
 
 extern volatile uint8_t updateLED;

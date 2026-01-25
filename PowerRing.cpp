@@ -47,20 +47,6 @@ int main(void)
   init_mytimer();
   WS_init();
 
-
-/*  _delay_ms(100);
-    for(uint8_t i=0;i<24;i++)
-    {
-      set_led_color(F_ROT,100,ring1(i));
-      refresh_led();
-      _delay_ms(300);
-    }
-
-  while(1)
-  {
-    ;
-  }*/
-
 	while (1)
 	{
 

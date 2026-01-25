@@ -14,9 +14,13 @@ extern COMMAND cnetCommands[];
 extern INFORMATION information[];
 
 #define NUM_COMMANDS 0+CMULTI_STANDARD_NUM
-#define NUM_INFORMATION 5
+#define NUM_INFORMATION 9
 
 
+void setDebugging();
+void clearDebugging();
+void activateNachtabschaltung();
+void deactivateNachtabschaltung();
 void gotNewPower();
 
 #endif /* COMMANDFUNCTIONS_H_ */
