@@ -15,18 +15,23 @@ static const uint8_t PROGMEM GammaTable[] = GCN_TABLE7TO8; // Original ! 128 Byt
 
 FARBE leds[NUMLEDS] = {F_ROT,F_LILA} ;  // 72 Bytes
 
-uint16_t AutoGain[20]= {0,0,0,10,15,20,40,80,160,320,640,1280,2560,5120,10240,20480,2560,30960,35960,40960};
+// uint16_t AutoGain[20]= {0,0,0,10,15,20,40,80,160,320,640,1280,2560,5120,10240,20480,2560,30960,35960,40960};
+uint16_t AutoGain[20]= {0,0,100,200,300,350,400,500,600,700,800,900,1000,2000,65535,65535,65535,65535,65535};
 
 
-/*
-void set_led_autobright(uint16_t lumi)
+
+uint8_t get_led_autobright(uint16_t lumi)
 {
 int i=19;
 	while( (lumi<AutoGain[i]) & (i!=0) )
 		i--;
-	fill_led_brightness(i+1);
+  if(i>15)
+    i=15;
+  if(i<3)
+    i=3;
+  return(i);
 }
-*/
+
 
 
 uint8_t ring1(uint8_t index)

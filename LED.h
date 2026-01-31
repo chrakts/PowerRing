@@ -55,7 +55,8 @@ void fill_led_brightness(uint8_t bright);
 void fill_bar_color(uint8_t r,uint8_t g,uint8_t b,uint8_t bright);
 void refresh_led();
 void refresh_led_new();
-void set_led_autobright(uint16_t lumi);
+
+uint8_t get_led_autobright(uint16_t lumi);
 void outputLEDs();
 
 #endif /* LED_H_ */

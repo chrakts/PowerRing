@@ -21,7 +21,8 @@ uint8_t brightness;
   if (brightness> MAX_BRIGHTNESS)
     brightness = MAX_BRIGHTNESS;*/
 
-  brightness = calcBrightness();
+  //brightness = calcBrightness();
+  brightness = get_led_autobright(helligkeitAussen);
 
   fill_led_color(F_BLACK,brightness);
   eigenVerbrauch = powerSolar;

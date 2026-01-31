@@ -49,6 +49,9 @@ int main(void)
 
 	while (1)
 	{
+    /*bar_ring2_color(127,127,127,0,0,10);
+    refresh_led();
+    while(1);*/
 
     if(updateLED)
     {
