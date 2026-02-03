@@ -22,14 +22,21 @@ uint16_t AutoGain[20]= {0,0,100,200,300,350,400,500,600,700,800,900,1000,2000,65
 
 uint8_t get_led_autobright(uint16_t lumi)
 {
-int i=19;
-	while( (lumi<AutoGain[i]) & (i!=0) )
-		i--;
-  if(i>15)
-    i=15;
-  if(i<3)
-    i=3;
-  return(i);
+  if( Nachtabschaltung == true)
+  {
+    return(0);
+  }
+  else
+  {
+    int i=19;
+    while( (lumi<AutoGain[i]) & (i!=0) )
+      i--;
+    if(i>15)
+      i=15;
+    if(i<3)
+      i=3;
+    return(i);
+  }
 }
 
 
