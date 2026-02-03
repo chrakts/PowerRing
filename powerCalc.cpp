@@ -77,7 +77,7 @@ void calcBatterieStatus()
   if (brightness> MAX_BRIGHTNESS)
     brightness = MAX_BRIGHTNESS;
 */
-  brightness = calcBrightness();
+  brightness = get_led_autobright(helligkeitAussen);
   temp = round(batterieStatus/4-1-1); // die ersten 4% werden nicht angezeigt -> Dadurch ergibt sich mit 24 LEDs: 4%/LED
   if(temp < 0)
     temp = 0;
